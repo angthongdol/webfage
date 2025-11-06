@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ประกาศและเอกสาร - สำนักงานที่ดินจังหวัดอ่างทอง</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="uploads/dol.ico">
+
   <!-- Tailwind + DaisyUI (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" />
@@ -21,19 +24,26 @@
 </head>
 <body class="bg-base-100">
   <!-- Navbar -->
-  <div class="navbar bg-primary text-primary-content shadow-lg">
-    <div class="flex-1">
-      <a href="index.html" class="btn btn-ghost normal-case text-xl">สำนักงานที่ดินจังหวัดอ่างทอง</a>
-    </div>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1 font-semibold">
-        <li><a href="index.html">หน้าแรก</a></li>
-        <li><a href="pdf.html" class="active">ประกาศ</a></li>
-        <li><a href="#">ข่าวประชาสัมพันธ์</a></li>
-        <li><a href="#">ติดต่อเรา</a></li>
-      </ul>
-    </div>
-  </div>
+   <div class="w-full navbar bg-base-100 sticky top-0 z-50">
+        <div class="flex-none lg:hidden">
+          <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <a href="index.html" class="btn btn-ghost normal-case text-xl md:text-2xl font-bold">สำนักงานที่ดินจังหวัดอ่างทอง</a>
+        </div>
+        <div class="flex-none hidden lg:block">
+          <ul class="menu menu-horizontal gap-2">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="pdf.html" class="active">ประกาศทั้งหมด</a></li>
+            <li><a href="contact.html">ติดต่อเรา</a></li>
+          </ul>
+        </div>
+      </div>
 
   <!-- Main Content -->
   <div class="min-h-screen">

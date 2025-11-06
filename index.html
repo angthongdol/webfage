@@ -1,112 +1,229 @@
 <!DOCTYPE html>
 <html lang="th" data-theme="emerald">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>สำนักงานที่ดินจังหวัดอ่างทอง</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="uploads/dol.ico">
 
-  <!-- Tailwind + DaisyUI (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" />
 
-  <!-- Google Fonts (Sarabun for Thai) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    html, body { font-family: "Sarabun", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
-    /* Optional brand colors to match mock */
-    :root { --fallback-b1: 244 247 250; }
+    html,
+    body {
+      font-family: "Sarabun", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background: linear-gradient(to bottom, hsl(var(--b2)), hsl(var(--b3)));
+    }
+
+    /* 🌟 ปรับธีม Emerald ให้ "ขาว-เขียว" เจ๋งจัด: พื้นหลังขาวบริสุทธิ์, เงาเขียวเข้ม */
+    [data-theme="emerald"] {
+      --b1: 0 0% 100%;
+      --b2: 0 0% 98%;
+      --b3: 0 0% 96%;
+      --p: 160 60% 40%;
+      /* เขียวเข้ม premium */
+      --pf: 160 60% 35%;
+      /* เขียวเข้ม focus */
+    }
+
+    /* การแบ่งสัดส่วนชัดเจนด้วยเงาและขอบ */
+    .navbar {
+      border-bottom: 2px solid hsl(var(--p) / 0.2);
+      background: hsl(var(--b1));
+      box-shadow: 0 2px 8px hsl(var(--bc) / 0.1);
+    }
+
+    .card.bg-base-100 {
+      border: 1px solid hsl(var(--p) / 0.15);
+      box-shadow: 0 6px 16px hsl(var(--bc) / 0.12);
+      transition: all 0.3s ease-in-out;
+      border-radius: 12px;
+    }
+
+    .card.bg-base-100:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px hsl(var(--bc) / 0.2);
+      border-color: hsl(var(--p) / 0.3);
+    }
+
+    /* ปุ่มและเมนู: เน้นความ premium */
+    .btn,
+    .menu li a {
+      transition: all 0.3s ease-in-out;
+      border-radius: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, hsl(var(--p)), hsl(var(--pf)));
+      border: none;
+      color: hsl(var(--b1));
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, hsl(var(--pf)), hsl(var(--p)));
+      transform: scale(1.05);
+    }
+
+    .menu li a:hover {
+      background: hsl(var(--p) / 0.15);
+      color: hsl(var(--p));
+      transform: translateX(4px);
+    }
+
+    /* หัวข้อและ badge: ชัดเจนและ formal */
+    .card-title {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: hsl(var(--bc) / 0.9);
+    }
+
+    .badge-outline {
+      border: 2px solid hsl(var(--p));
+      color: hsl(var(--p));
+      font-weight: 600;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+    }
+
+    .badge-success {
+      background: hsl(var(--p));
+      color: hsl(var(--b1));
+      font-weight: 600;
+    }
+
+    /* Aside sticky: เน้นการแบ่งสัดส่วน */
+    aside .card {
+      background: hsl(var(--b1));
+      border: 1px solid hsl(var(--p) / 0.1);
+      box-shadow: 0 4px 12px hsl(var(--bc) / 0.08);
+    }
+
+    /* Main content: เงาและขอบชัดเจน */
+    main {
+      border: 1px solid hsl(var(--p) / 0.1);
+      box-shadow: 0 8px 20px hsl(var(--bc) / 0.1);
+      background: hsl(var(--b1));
+    }
+
+    /* Footer: สีเขียวเข้ม formal */
+    footer {
+      color: hsl(var(--bc) / 0.7);
+      border-top: 2px solid hsl(var(--p) / 0.2);
+      background: hsl(var(--b2));
+    }
   </style>
 </head>
-<body class="bg-base-100">
-  <!-- Navbar -->
-  <div class="navbar bg-primary text-primary-content shadow-lg">
-    <div class="flex-1">
-      <a class="btn btn-ghost normal-case text-xl">สำนักงานที่ดินจังหวัดอ่างทอง</a>
-    </div>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1 font-semibold">
-        <li><a href="#">หน้าแรก</a></li>
-        <li><a href="#">ประกาศ</a></li>
-        <li><a href="#">ข่าวประชาสัมพันธ์</a></li>
-        <li><a href="#">ติดต่อเรา</a></li>
-      </ul>
-    </div>
-  </div>
+
+<body>
+
+  <div class="drawer">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col">
+      <!-- Navbar -->
+      <div class="w-full navbar bg-base-100 sticky top-0 z-50">
+        <div class="flex-none lg:hidden">
+          <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <a href="index.html" class="btn btn-ghost normal-case text-xl md:text-2xl font-bold">สำนักงานที่ดินจังหวัดอ่างทอง</a>
+        </div>
+        <div class="flex-none hidden lg:block">
+          <ul class="menu menu-horizontal gap-2">
+            <li><a href="index.html" class="active">หน้าแรก</a></li>
+            <li><a href="pdf.html">ประกาศทั้งหมด</a></li>
+            <li><a href="contact.html">ติดต่อเรา</a></li>
+          </ul>
+        </div>
+      </div>
+
   <div class="min-h-screen">
-    <!-- Wrapper -->
-    <div class="mx-auto max-w-7xl px-3 lg:px-6 py-6">
-      <div class="grid grid-cols-1 lg:grid-cols-[320px,1fr] gap-6">
-        <!-- Left Sidebar -->
-        <aside class="bg-base-200 rounded-2xl p-4 lg:p-6 shadow-sm">
-          <div class="sticky top-4 space-y-6">
-            <!-- Officer card -->
-            <div class="card bg-base-100 shadow-md border">
-              <figure class="p-3">
-                <!-- Replace with your real photo path -->
-                <img src="uploads/officer.jpg" alt="เจ้าพนักงานที่ดินจังหวัดอ่างทอง" class="rounded-xl object-cover aspect-[3/4] w-full" />
+    <div class="mx-auto max-w-7xl px-4 lg:px-8 py-8 lg:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-[360px,1fr] gap-8">
+
+        <aside class="space-y-8">
+          <div class="sticky top-28 space-y-8">
+            <div class="card bg-base-100 shadow-lg">
+              <figure class="p-5">
+                <img src="uploads/officer.jpg" alt="เจ้าพนักงานที่ดินจังหวัดอ่างทอง"
+                  class="rounded-xl object-cover aspect-[3/4] w-full border border-base-300" />
               </figure>
-              <div class="card-body py-3">
-                <h2 class="card-title text-center text-lg">นายประภัสร์ รื่นภาคเพ็ชร</h2>
-                <h1 class="card-title text-center text-base">เจ้าพนักงานที่ดินจังหวัดอ่างทอง</h1>
+              <div class="card-body py-4 items-center text-center">
+                <h2 class="card-title text-xl">นายประภัสร์ รื่นภาคเพ็ชร</h2>
+                <h1 class="text-base-content/80 text-base font-medium">เจ้าพนักงานที่ดินจังหวัดอ่างทอง</h1>
               </div>
             </div>
 
-            <!-- Announcements (Links) -->
-            <section class="bg-base-100 rounded-2xl shadow border">
-              <header class="px-4 py-3 border-b">
-                <h3 class="font-semibold">ประกาศต่างๆ</h3>
+            <section class="card bg-base-100 shadow-lg">
+              <header class="px-5 py-4 border-b-2 border-base-300">
+                <h3 class="font-bold text-xl text-base-content/90">ประกาศล่าสุด</h3>
               </header>
-              <nav class="p-2">
-                <ul class="menu menu-lg gap-1">
-                  <li><a class="justify-between" href="upfile/t1.pdf" aria-label="ประกาศ 1">ประกาศ 1 <span class="badge">ใหม่</span></a></li>
-                  <li><a href="upfile/s1.pdf">ประกาศ 2</a></li>
-                  <li><a href="upfile/s2.pdf">ประกาศ 3</a></li>
-                  <li><a href="upfile/s3.pdf">ประกาศ 4</a></li>
-                  <li><a href="upfile/s4.pdf">ประกาศ 5</a></li>
+              <nav class="p-3">
+                <ul class="menu menu-lg gap-2">
+                  <li><a class="justify-between font-medium" href="upfile/t1.pdf" aria-label="ประกาศ 1">ประกาศ 1 <span
+                        class="badge badge-success">ใหม่</span></a></li>
+                  <li><a href="upfile/s1.pdf" class="font-medium">ประกาศ 2</a></li>
+                  <li><a href="upfile/s2.pdf" class="font-medium">ประกาศ 3</a></li>
+                  <li><a href="upfile/s3.pdf" class="font-medium">ประกาศ 4</a></li>
+                  <li><a href="upfile/s4.pdf" class="font-medium">ประกาศ 5</a></li>
                 </ul>
+                <div class="px-4 pt-4 text-center">
+                  <a href="pdf.html" class="btn btn-primary btn-block">
+                    ดูประกาศทั้งหมด
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                  </a>
+                </div>
               </nav>
             </section>
           </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="bg-[#5ba7b0]/10 rounded-2xl p-4 lg:p-8 shadow-sm">
-          <div class="max-w-3xl mx-auto">
-            <!-- Section Title -->
-            <div class="flex items-center justify-center">
-              <div class="badge badge-lg badge-ghost border-base-content/30 px-6 py-4 text-base font-semibold">ข่าวประชาสัมพันธ์</div>
+        <main class="bg-base-100 rounded-3xl p-6 lg:p-10 shadow-lg">
+          <div class="max-w-4xl mx-auto">
+            <div class="flex items-center justify-center mb-8">
+              <div class="badge badge-lg badge-outline px-8 py-5 text-lg font-bold">ข่าวประชาสัมพันธ์</div>
             </div>
 
-            <!-- News grid -->
-            <div class="mt-6 grid gap-8 md:grid-cols-1">
-              <!-- News item 1 -->
-              <article class="card bg-base-100 shadow-md border">
-                <figure class="p-3">
+            <div class="grid gap-10 md:grid-cols-1">
+              <article class="card bg-base-100 shadow-lg">
+                <figure class="p-4">
                   <img src="uploads/1.jpg" alt="ข่าวประชาสัมพันธ์ 1" class="rounded-xl w-full object-cover" />
                 </figure>
-                <div class="card-body py-3">
-                  <h3 class="card-title text-base">หัวข้อข่าวประชาสัมพันธ์ 1</h3>
-                  <p class="text-sm text-base-content/70">รายละเอียดสั้น ๆ ของข่าวประชาสัมพันธ์หรือบริการของสำนักงานที่ดินจังหวัดอ่างทอง</p>
-                  <div class="card-actions justify-end">
-                    <a class="btn btn-primary" href="#">อ่านเพิ่มเติม</a>
-                  </div>
+                <div class="card-body py-4">
+                  <h3 class="card-title text-lg">หัวข้อข่าวประชาสัมพันธ์ 1</h3>
+                  <p class="text-base text-base-content/70">รายละเอียดสั้น ๆ
+                    ของข่าวประชาสัมพันธ์หรือบริการของสำนักงานที่ดินจังหวัดอ่างทอง</p>
+                 
                 </div>
               </article>
 
-              <!-- News item 2 -->
-              <article class="card bg-base-100 shadow-md border">
-                <figure class="p-3">
-                  <img src="uploads/2.jpg" alt="ข่าวประชาสัมพันธ์ 2" class="rounded-xl w-full object-cover" />
+              <article class="card bg-base-100 shadow-lg">
+                <figure class="p-4">
+                  <img src="Uploads/2.jpg" alt="ข่าวประชาสัมพันธ์ 2" class="rounded-xl w-full object-cover" />
                 </figure>
-                <div class="card-body py-3">
-                  <h3 class="card-title text-base">หัวข้อข่าวประชาสัมพันธ์ 2</h3>
-                  <p class="text-sm text-base-content/70">ข้อความประชาสัมพันธ์เพิ่มเติม เช่น การให้บริการ SmartLands หรือช่องทางติดต่อ</p>
-                  <div class="card-actions justify-end">
-                    <a class="btn btn-primary" href="#">อ่านเพิ่มเติม</a>
-                  </div>
+                <div class="card-body py-4">
+                  <h3 class="card-title text-lg">หัวข้อข่าวประชาสัมพันธ์ 2</h3>
+                  <p class="text-base text-base-content/70">ข้อความประชาสัมพันธ์เพิ่มเติม เช่น การให้บริการ SmartLands
+                    หรือช่องทางติดต่อ</p>
+                 
                 </div>
               </article>
             </div>
@@ -115,8 +232,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="mt-8 text-center text-sm text-base-content/60 py-8">
+    <footer class="mt-12 text-center text-base font-medium py-10 border-t-2">
       © <span id="year"></span> สำนักงานที่ดินจังหวัดอ่างทอง
     </footer>
   </div>
@@ -125,4 +241,5 @@
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
+
 </html>

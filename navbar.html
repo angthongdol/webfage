@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="emerald">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Navbar Component</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="uploads/dol.ico">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    html,
+    body {
+      font-family: "Sarabun", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    [data-theme="emerald"] {
+      --b1: 0 0% 100%;
+      --b2: 0 0% 98%;
+      --b3: 0 0% 96%;
+      --p: 160 60% 40%;
+      --pf: 160 60% 35%;
+    }
+
+    .navbar {
+      border-bottom: 2px solid hsl(var(--p) / 0.2);
+      background: hsl(var(--b1));
+      box-shadow: 0 2px 8px hsl(var(--bc) / 0.1);
+    }
+
+    .menu li a {
+      transition: all 0.3s ease-in-out;
+      border-radius: 8px;
+    }
+
+    .menu li a:hover {
+      background: hsl(var(--p) / 0.15);
+      color: hsl(var(--p));
+      transform: translateX(4px);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Component: Navigation Bar -->
+  <div class="drawer">
+    <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col">
+      <!-- Navbar -->
+      <div class="w-full navbar bg-base-100 sticky top-0 z-50">
+        <div class="flex-none lg:hidden">
+          <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </label>
+        </div>
+        <div class="flex-1">
+          <a href="index.html" class="btn btn-ghost normal-case text-xl md:text-2xl font-bold">สำนักงานที่ดินจังหวัดอ่างทอง</a>
+        </div>
+        <div class="flex-none hidden lg:block">
+          <ul class="menu menu-horizontal gap-2">
+            <li><a href="index.html" id="nav-home">หน้าแรก</a></li>
+            <li><a href="pdf.html" id="nav-announcement">ประกาศทั้งหมด</a></li>
+            <li><a href="contact.html" id="nav-contact">ติดต่อเรา</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Menu สำหรับมือถือ -->
+    <div class="drawer-side">
+      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 min-h-full bg-base-200">
+        <li><a href="index.html" id="drawer-home">หน้าแรก</a></li>
+        <li><a href="announcement.html" id="drawer-announcement">ประกาศทั้งหมด</a></li>
+        <li><a href="contact.html" id="drawer-contact">ติดต่อเรา</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Function to set active menu item based on current page
+    function setActiveMenuItem() {
+      const currentPath = window.location.pathname;
+      const pageName = currentPath.split('/').pop() || 'index.html';
+      
+      // Remove all active classes first
+      document.querySelectorAll('.menu a').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      // Set active class based on current page
+      switch(pageName) {
+        case 'index.html':
+          document.getElementById('nav-home').classList.add('active');
+          document.getElementById('drawer-home').classList.add('active');
+          break;
+        case 'announcement.html':
+          document.getElementById('nav-announcement').classList.add('active');
+          document.getElementById('drawer-announcement').classList.add('active');
+          break;
+        case 'contact.html':
+          document.getElementById('nav-contact').classList.add('active');
+          document.getElementById('drawer-contact').classList.add('active');
+          break;
+      }
+    }
+
+    // Run when page loads
+    document.addEventListener('DOMContentLoaded', setActiveMenuItem);
+  </script>
+</body>
+
+</html>
