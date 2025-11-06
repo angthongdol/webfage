@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="emerald">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>สำนักงานที่ดินจังหวัดอ่างทอง</title>
+
+  <!-- Tailwind + DaisyUI (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.min.css" rel="stylesheet" />
+
+  <!-- Google Fonts (Sarabun for Thai) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    html, body { font-family: "Sarabun", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+    /* Optional brand colors to match mock */
+    :root { --fallback-b1: 244 247 250; }
+  </style>
+</head>
+<body class="bg-base-100">
+  <!-- Navbar -->
+  <div class="navbar bg-primary text-primary-content shadow-lg">
+    <div class="flex-1">
+      <a class="btn btn-ghost normal-case text-xl">สำนักงานที่ดินจังหวัดอ่างทอง</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1 font-semibold">
+        <li><a href="#">หน้าแรก</a></li>
+        <li><a href="#">ประกาศ</a></li>
+        <li><a href="#">ข่าวประชาสัมพันธ์</a></li>
+        <li><a href="#">ติดต่อเรา</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="min-h-screen">
+    <!-- Wrapper -->
+    <div class="mx-auto max-w-7xl px-3 lg:px-6 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-[320px,1fr] gap-6">
+        <!-- Left Sidebar -->
+        <aside class="bg-base-200 rounded-2xl p-4 lg:p-6 shadow-sm">
+          <div class="sticky top-4 space-y-6">
+            <!-- Officer card -->
+            <div class="card bg-base-100 shadow-md border">
+              <figure class="p-3">
+                <!-- Replace with your real photo path -->
+                <img src="uploads/officer.jpg" alt="เจ้าพนักงานที่ดินจังหวัดอ่างทอง" class="rounded-xl object-cover aspect-[3/4] w-full" />
+              </figure>
+              <div class="card-body py-3">
+                <h2 class="card-title text-center text-lg">นายประภัสร์ รื่นภาคเพ็ชร</h2>
+                <h1 class="card-title text-center text-base">เจ้าพนักงานที่ดินจังหวัดอ่างทอง</h1>
+              </div>
+            </div>
+
+            <!-- Announcements (Links) -->
+            <section class="bg-base-100 rounded-2xl shadow border">
+              <header class="px-4 py-3 border-b">
+                <h3 class="font-semibold">ประกาศต่างๆ</h3>
+              </header>
+              <nav class="p-2">
+                <ul class="menu menu-lg gap-1">
+                  <li><a class="justify-between" href="upfile/t1.pdf" aria-label="ประกาศ 1">ประกาศ 1 <span class="badge">ใหม่</span></a></li>
+                  <li><a href="upfile/s1.pdf">ประกาศ 2</a></li>
+                  <li><a href="upfile/s2.pdf">ประกาศ 3</a></li>
+                  <li><a href="upfile/s3.pdf">ประกาศ 4</a></li>
+                  <li><a href="upfile/s4.pdf">ประกาศ 5</a></li>
+                </ul>
+              </nav>
+            </section>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="bg-[#5ba7b0]/10 rounded-2xl p-4 lg:p-8 shadow-sm">
+          <div class="max-w-3xl mx-auto">
+            <!-- Section Title -->
+            <div class="flex items-center justify-center">
+              <div class="badge badge-lg badge-ghost border-base-content/30 px-6 py-4 text-base font-semibold">ข่าวประชาสัมพันธ์</div>
+            </div>
+
+            <!-- News grid -->
+            <div class="mt-6 grid gap-8 md:grid-cols-1">
+              <!-- News item 1 -->
+              <article class="card bg-base-100 shadow-md border">
+                <figure class="p-3">
+                  <img src="uploads/1.jpg" alt="ข่าวประชาสัมพันธ์ 1" class="rounded-xl w-full object-cover" />
+                </figure>
+                <div class="card-body py-3">
+                  <h3 class="card-title text-base">หัวข้อข่าวประชาสัมพันธ์ 1</h3>
+                  <p class="text-sm text-base-content/70">รายละเอียดสั้น ๆ ของข่าวประชาสัมพันธ์หรือบริการของสำนักงานที่ดินจังหวัดอ่างทอง</p>
+                  <div class="card-actions justify-end">
+                    <a class="btn btn-primary" href="#">อ่านเพิ่มเติม</a>
+                  </div>
+                </div>
+              </article>
+
+              <!-- News item 2 -->
+              <article class="card bg-base-100 shadow-md border">
+                <figure class="p-3">
+                  <img src="uploads/2.jpg" alt="ข่าวประชาสัมพันธ์ 2" class="rounded-xl w-full object-cover" />
+                </figure>
+                <div class="card-body py-3">
+                  <h3 class="card-title text-base">หัวข้อข่าวประชาสัมพันธ์ 2</h3>
+                  <p class="text-sm text-base-content/70">ข้อความประชาสัมพันธ์เพิ่มเติม เช่น การให้บริการ SmartLands หรือช่องทางติดต่อ</p>
+                  <div class="card-actions justify-end">
+                    <a class="btn btn-primary" href="#">อ่านเพิ่มเติม</a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-sm text-base-content/60 py-8">
+      © <span id="year"></span> สำนักงานที่ดินจังหวัดอ่างทอง
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
