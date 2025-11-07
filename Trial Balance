@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>งบทดลอง (แยกปีงบประมาณ)</title>
+    <style>
+        body {
+            font-family: "Prompt", sans-serif;
+            background-color: #f4f6f8;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        select {
+            font-size: 16px;
+            padding: 8px;
+            margin-right: 10px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 6px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+
+        .selectors {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>งบทดลองรายเดือน (แยกปีงบประมาณ)</h1>
+        <p>เลือกปีงบประมาณและเดือนเพื่อดูรายงาน (PDF)</p>
+    </header>
+
+    <div class="container">
+        <div class="selectors">
+            <label for="yearSelect">ปีงบประมาณ:</label>
+            <select id="yearSelect" onchange="showPDF()">
+                <option value="">-- เลือกปีงบประมาณ --</option>
+                <option value="2567">2567</option>
+                <option value="2568">2568</option>
+                <option value="2569">2569</option>
+            </select>
+
+            <label for="monthSelect">เดือน:</label>
+            <select id="monthSelect" onchange="showPDF()">
+                <option value="">-- เลือกเดือน --</option>
+                <option value="january">มกราคม</option>
+                <option value="february">กุมภาพันธ์</option>
+                <option value="march">มีนาคม</option>
+                <option value="april">เมษายน</option>
+                <option value="may">พฤษภาคม</option>
+                <option value="june">มิถุนายน</option>
+                <option value="july">กรกฎาคม</option>
+                <option value="august">สิงหาคม</option>
+                <option value="september">กันยายน</option>
+                <option value="october">ตุลาคม</option>
+                <option value="november">พฤศจิกายน</option>
+                <option value="december">ธันวาคม</option>
+            </select>
+        </div>
+
+        <div id="pdfViewer">
+            <iframe id="pdfFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        function showPDF() {
+            const year = document.getElementById("yearSelect").value;
+            const month = document.getElementById("monthSelect").value;
+            const pdfFrame = document.getElementById("pdfFrame");
+
+            if (year && month) {
+                // กำหนด path ของไฟล์ PDF เช่น pdf/2568/january.pdf
+                const pdfPath = `pdf/${year}/${month}.pdf`;
+                pdfFrame.src = pdfPath;
+            } else {
+                pdfFrame.src = "";
+            }
+        }
+    </script>
+</body>
+</html>
