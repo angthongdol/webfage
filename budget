@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>จัดซื้อจัดจ้าง — เรียกดูไฟล์ PDF ตามปีงบประมาณ</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    /* Simple styling for PDF viewer fallback */
+    .pdf-viewer { height: calc(100vh - 4rem); }
+    .file-item { cursor: pointer; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-white shadow p-4 flex items-center justify-between">
+    <h1 class="text-lg font-semibold">จัดซื้อจัดจ้าง — เรียกดูไฟล์ PDF ตามปีงบประมาณ</h1>
+    <div class="text-sm text-gray-600">วางไฟล์ไว้ในโฟลเดอร์ <code>/pdfs/{year}/</code></div>
+  </header>
+
+  <main class="p-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
+    <!-- Sidebar: ปีงบประมาณ -->
+    <aside class="lg:col-span-1 bg-white rounded shadow p-4">
+      <input id="filter" type="search" placeholder="ค้นหาชื่อไฟล์หรือปี" class="w-full mb-3 px-3 py-2 border rounded" />
+      <div id="yearsList" class="space-y-2" aria-live="polite"></div>
+    </aside>
+
+    <!-- Viewer -->
+    <section class="lg:col-span-3 bg-white rounded shadow p-4">
+      <div id="viewerHeader" class="flex items-center justify-between mb-3">
+        <div>
+          <div id="currentPath" class="text-sm text-gray-600">เลือกปีงบประมาณและไฟล์เพื่อแสดงผล</div>
+          <div id="currentTitle" class="text-xl font-medium">ไม่มีไฟล์ที่ถูกเลือก</div>
+        </div>
+        <div class="flex items-center space-x-2">
+          <a id="openRaw" class="hidden px-3 py-1 border rounded text-sm" target="_blank">เปิดในแท็บใหม่</a>
+        </div>
+      </div>
+
+      <div class="border rounded overflow-hidden">
+        <!-- PDF viewer: iframe/object fallback -->
+        <iframe id="pdfFrame" class="w-full pdf-viewer" title="PDF Viewer"></iframe>
+        <!-- If you want a PDF.js viewer, replace iframe with a PDF.js integration. -->
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // --- ตัวอย่างข้อมูล (แก้ไขตามไฟล์จริงของคุณ) ---
+    // โครงสร้าง: years = { "2566": [ {name, file}, ... ], ... }
+    const years = {
+      "2565": [
+        { name: "ประกาศประกวดราคาฯ_ม.ค._2565.pdf", file: "pdfs/2565/ประกาศประกวดราคาฯ_ม.ค._2565.pdf" },
+        { name: "สรุปผลจัดซื้อ_มี.ค._2565.pdf", file: "pdfs/2565/สรุปผลจัดซื้อ_มี.ค._2565.pdf" }
+      ],
+      "2566": [
+        { name: "ประกาศประกวดราคาฯ_เม.ย._2566.pdf", file: "pdfs/2566/ประกาศประกวดราคาฯ_เม.ย._2566.pdf" },
+        { name: "สัญญาจัดซื้อ_ก.ค._2566.pdf", file: "pdfs/2566/สัญญาจัดซื้อ_ก.ค._2566.pdf" }
+      ],
+      "2567": [
+        { name: "แผนจัดซื้อ_ต.ค._2567.pdf", file: "pdfs/2567/แผนจัดซื้อ_ต.ค._2567.pdf" }
+      ]
+    };
+
+    const yearsListEl = document.getElementById('yearsList');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const currentTitle = document.getElementById('currentTitle');
+    const currentPath = document.getElementById('currentPath');
+    const openRaw = document.getElementById('openRaw');
+    const filterInput = document.getElementById('filter');
+
+    function renderYears(filter = ''){
+      yearsListEl.innerHTML = '';
+      const keys = Object.keys(years).sort((a,b)=>b-a); // เรียงปีจากใหม่->เก่า
+      keys.forEach(year => {
+        // filter by year or file name
+        const files = years[year].filter(f => (f.name + ' ' + year).toLowerCase().includes(filter.toLowerCase()));
+        if(files.length === 0) return;
+
+        const container = document.createElement('div');
+        container.className = 'border rounded p-2 bg-gray-50';
+
+        const header = document.createElement('button');
+        header.className = 'w-full text-left py-2 font-medium flex items-center justify-between file-item';
+        header.innerHTML = `<span>ปีงบประมาณ ${year} <span class=\"text-xs text-gray-500\">(${files.length} ไฟล์)</span></span><span>▾</span>`;
+        header.addEventListener('click', ()=>{
+          container.querySelector('.files').classList.toggle('hidden');
+        });
+
+        const filesWrap = document.createElement('div');
+        filesWrap.className = 'files mt-2 space-y-1';
+
+        files.forEach(f =>{
+          const fEl = document.createElement('div');
+          fEl.className = 'flex items-center justify-between px-2 py-1 rounded hover:bg-white file-item';
+
+          const nameSpan = document.createElement('div');
+          nameSpan.className = 'truncate text-sm';
+          nameSpan.textContent = f.name;
+
+          const btn = document.createElement('button');
+          btn.className = 'text-sm text-blue-600 hover:underline';
+          btn.textContent = 'ดูไฟล์';
+          btn.addEventListener('click', ()=>{ openPdf(f, year); });
+
+          fEl.appendChild(nameSpan);
+          fEl.appendChild(btn);
+          filesWrap.appendChild(fEl);
+        });
+
+        container.appendChild(header);
+        container.appendChild(filesWrap);
+        yearsListEl.appendChild(container);
+      });
+    }
+
+    function openPdf(fileObj, year){
+      const url = fileObj.file; // path relative to site root or absolute URL
+      // set iframe src
+      pdfFrame.src = url;
+      currentTitle.textContent = fileObj.name;
+      currentPath.textContent = `ปีงบประมาณ ${year} — ${fileObj.file}`;
+      openRaw.href = url;
+      openRaw.classList.remove('hidden');
+    }
+
+    // กรองรายการแบบ realtime
+    filterInput.addEventListener('input', (e)=>{ renderYears(e.target.value.trim()); });
+
+    // initial render
+    renderYears();
+
+    // Optional: deep link support via #year=2566&file=สัญญ.pdf
+    window.addEventListener('load', ()=>{
+      const params = new URLSearchParams(location.hash.replace('#',''));
+      const year = params.get('year');
+      const file = params.get('file');
+      if(year && file && years[year]){
+        const match = years[year].find(f=>f.name === file || f.file.endsWith(file));
+        if(match) openPdf(match, year);
+      }
+    });
+  </script>
+
+  <footer class="p-4 text-xs text-gray-500 text-center">คู่มือนี้: วางไฟล์ PDF ลงในโฟลเดอร์ <code>/pdfs/{ปี}/</code> และปรับตัวแปร <code>years</code> ในไฟล์นี้ให้ตรงกับไฟล์จริงของท่าน</footer>
+</body>
+</html>
