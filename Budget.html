@@ -3,81 +3,338 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>จัดซื้อจัดจ้าง (PDF) — ปีงบประมาณ 2567–2569</title>
+  <title>ระบบประกาศจัดซื้อจัดจ้าง — ปีงบประมาณ 2567–2569</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#f6f7fb;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);margin:0;color:#111}
-    .container{max-width:1100px;margin:36px auto;padding:20px}
-    header{display:flex;align-items:center;gap:16px}
-    h1{margin:0;font-size:20px}
-    p.lead{margin:6px 0 18px;color:var(--muted)}
-    .years{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-    .year-btn{background:transparent;border:1px solid #d1d5db;padding:10px 14px;border-radius:10px;cursor:pointer}
-    .year-btn.active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(37,99,235,0.12)}
-    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(16,24,40,0.04);margin-bottom:12px}
-    .pdf-list{list-style:none;padding:0;margin:0}
-    .pdf-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 8px;border-radius:8px}
-    .pdf-list li + li{border-top:1px solid #f3f4f6}
-    .pdf-meta{display:flex;align-items:center;gap:12px}
-    .pdf-name{font-weight:600}
-    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
-    .btn.view{background:#efefef}
-    .btn.download{background:var(--accent);color:#fff}
-    .search{margin-bottom:12px;display:flex;gap:10px}
-    .search input{flex:1;padding:10px;border-radius:10px;border:1px solid #e5e7eb}
-    /* modal */
-    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
-    .modal.open{display:flex}
-    .modal .viewer{width:95%;max-width:1100px;height:80vh;background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
-    .viewer .toolbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #eef2ff}
-    .viewer iframe{flex:1;border:0}
-    footer{margin-top:20px;color:var(--muted);font-size:13px}
-    @media (max-width:600px){h1{font-size:18px}}
+    :root {
+      --primary: #0f3a7e; /* น้ำเงินกรมท่า */
+      --primary-light: #eef4ff;
+      --accent: #d92d20;
+      --text-main: #333333;
+      --text-muted: #666666;
+      --border: #dde2e5;
+      --bg: #f4f6f9;
+    }
+    
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--bg);
+      margin: 0;
+      color: var(--text-main);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* Header แถบสีน้ำเงินด้านบน */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 20px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .header-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .header-icon {
+      font-size: 32px; /* แทนที่ด้วยโลโก้ได้ */
+    }
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 500;
+    }
+    p.subtitle {
+      margin: 4px 0 0;
+      font-size: 14px;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+
+    /* Container หลัก */
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    /* ส่วนควบคุมการค้นหาและเลือกปี */
+    .controls {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      gap: 10px;
+    }
+    
+    input[type="text"] {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 15px;
+    }
+    
+    select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Sarabun', sans-serif;
+      background: #fff;
+    }
+
+    /* Tab ปีงบประมาณ */
+    .year-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--primary);
+      margin-bottom: 0;
+    }
+    .year-btn {
+      background: #eaeaea;
+      border: 1px solid #ddd;
+      border-bottom: none;
+      padding: 10px 24px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 16px;
+      margin-right: 4px;
+      border-radius: 4px 4px 0 0;
+      color: #555;
+      transition: all 0.2s;
+    }
+    .year-btn:hover {
+      background: #f0f0f0;
+    }
+    .year-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      font-weight: 500;
+    }
+
+    /* ตารางรายการเอกสาร */
+    .document-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: none;
+      min-height: 300px;
+    }
+    
+    .doc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .doc-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.1s;
+    }
+    .doc-item:hover {
+      background-color: var(--primary-light);
+    }
+    .doc-item:last-child {
+      border-bottom: none;
+    }
+
+    .doc-info {
+      flex: 1;
+      padding-right: 20px;
+    }
+    .doc-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 4px;
+    }
+    .doc-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .doc-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ปุ่มกด */
+    .btn {
+      padding: 6px 16px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+    }
+    .btn-view {
+      background: #fff;
+      border-color: #ccc;
+      color: #333;
+    }
+    .btn-view:hover {
+      background: #f5f5f5;
+    }
+    .btn-download {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-download:hover {
+      background: #0b2e63;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid #ddd;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.open { display: flex; }
+    .viewer {
+      width: 90%;
+      max-width: 1000px;
+      height: 85vh;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    .viewer-header {
+      padding: 10px 15px;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .viewer-title {
+      font-weight: 600;
+      font-size: 16px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 70%;
+    }
+    .viewer iframe {
+      flex: 1;
+      border: none;
+      background: #e5e5e5;
+    }
+
+    @media (max-width: 600px) {
+      .doc-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .doc-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+      .controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>จัดซื้อจัดจ้าง</h1>
-    </header>
-    <p class="lead">เลือกปีงบประมาณด้านล่างเพื่อตรวจดูไฟล์ PDF</p>
 
-    <div class="card">
-      <div class="search">
-        <input id="searchInput" placeholder="ค้นหาชื่อไฟล์ หรือ คำอธิบาย (เช่น 'ประกาศ', 'สัญญา')" />
-        <select id="yearSelect" aria-label="เลือกปี">
-          <!-- ปียกตัวอย่าง จะถูกเติมด้วย JS -->
-        </select>
+  <header>
+    <div class="header-content">
+      <div class="header-icon">🏛️</div> 
+      <div>
+        <h1>ประกาศจัดซื้อจัดจ้าง</h1>
+        <p class="subtitle">ระบบสารสนเทศเพื่อการบริหารงานพัสดุและสัญญา</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <div class="controls">
+      <div style="font-weight: 600; color: var(--primary);">ค้นหาเอกสาร</div>
+      <div class="search-box">
+        <input id="searchInput" type="text" placeholder="พิมพ์ชื่อโครงการ หรือเลขที่สัญญา..." />
+        <select id="yearSelect" aria-label="เลือกปีงบประมาณ">
+          </select>
+      </div>
+    </div>
+
+    <div class="year-tabs" id="years"></div>
+
+    <div class="document-panel" id="contentArea">
       </div>
 
-      <div class="years" id="years"></div>
+    <footer>
+      <p>© สงวนลิขสิทธิ์ข้อมูลโดยหน่วยงาน | รองรับการใช้งานผ่าน Chrome, Firefox, Edge</p>
+      <p style="opacity: 0.6;">หมายเหตุ: ไฟล์เอกสารจัดเก็บในรูปแบบ PDF</p>
+    </footer>
 
-      <div id="contentArea"></div>
-
-      <footer>หมายเหตุ: ตัวอย่างนี้ใช้ลิงก์ไฟล์แบบ relative เช่น <code>/pdfs/2567/ประกาศ_จัดซื้อ_1.pdf</code>. อัปโหลดไฟล์ตามโครงสร้างนี้ที่เซิร์ฟเวอร์ของคุณ</footer>
-    </div>
   </div>
 
-  <!-- modal viewer -->
-  <div id="modal" class="modal" role="dialog" aria-modal="true">
+  <div id="modal" class="modal">
     <div class="viewer">
-      <div class="toolbar">
-        <div id="modalTitle">PDF Viewer</div>
-        <div>
-          <button id="downloadBtn" class="btn download">ดาวน์โหลด</button>
-          <button id="closeBtn" class="btn">ปิด</button>
+      <div class="viewer-header">
+        <div class="viewer-title" id="modalTitle">Document</div>
+        <div style="display:flex; gap:10px;">
+          <button id="downloadBtn" class="btn btn-download">ดาวน์โหลด</button>
+          <button id="closeBtn" class="btn btn-view">ปิดหน้าต่าง</button>
         </div>
       </div>
-      <iframe id="pdfFrame" title="PDF viewer"></iframe>
+      <iframe id="pdfFrame" title="PDF Preview"></iframe>
     </div>
   </div>
 
   <script>
-    // ====== ปรับแก้ manifest ที่นี่ ======
+    // ====== ข้อมูล Manifest (แก้ไข Syntax Error แล้ว) ======
     const manifest = {
       "2567":[
-        {"file":"/pdfs/2567/ประกาศ_จัดซื้อ_2567_1.pdf","title":"ประกาศจัดซื้อ 1 (2567)","desc":"ประกาศเชิญชวน"},
-        {"file":"/pdfs/2567/สัญญา_ผู้ชนะ_2567.pdf","title":"สัญญาผู้ชนะประกวดราคา","desc":"สัญญาโครงการ"}
+        {"file":"/pdfs/2567/ประกาศ_จัดซื้อ_2567_1.pdf","title":"ประกาศจัดซื้อ 1 (2567)","desc":"ประกาศเชิญชวนทั่วไป"},
+        {"file":"/pdfs/2567/สัญญา_ผู้ชนะ_2567.pdf","title":"สัญญาผู้ชนะประกวดราคา","desc":"สัญญาโครงการจ้างเหมา"}
       ],
       "2568":[
         {"file":"upfile/Cleanning02.pdf","title":"ประกาศจังหวัดอ่างทอง เรื่อง ผู้ชนะการเสนอราคา จ้างเหมาบริการ งานทำความสะอาด โดยวิธีเฉพาะเจาะจง","desc":"ประกาศและเอกสารแนบ"},
@@ -89,10 +346,10 @@
         {"file":"upfile/terminalPhone2568.pdf","title":"ประกาศจังหวัดอ่างทอง เรื่อง ผู้ชนะการเสนอราคา จัดซื้อตู้โทรศัพท์ พร้อมติดตั้งอุปกรณ์ จำนวน 1 ระบบ โดยวิธีเฉพาะเจาะจง","desc":"ประกาศและเอกสารแนบ"}
       ],
       "2569":[
-        {"file":"/pdfs/2569/ประกาศ_จัดซื้อ_2569.pdf","title":"ประกาศจัดซื้อ 2569","desc":"ประกาศทั่วไป"}
+        {"file":"/pdfs/2569/ประกาศ_จัดซื้อ_2569.pdf","title":"ร่างขอบเขตงาน (TOR) ประจำปี 2569","desc":"ฉบับร่างเพื่อรับฟังวิจารณ์"}
       ]
     };
-    // ===================================
+    // =================================================
 
     const years = Object.keys(manifest).sort();
     const yearsContainer = document.getElementById('years');
@@ -105,60 +362,78 @@
       years.forEach(y => {
         const b = document.createElement('button');
         b.className = 'year-btn';
-        b.textContent = y;
-        b.addEventListener('click', ()=> {
-          setActiveYear(y);
-        });
+        b.textContent = 'ปีงบประมาณ ' + y;
+        b.addEventListener('click', ()=> setActiveYear(y));
         yearsContainer.appendChild(b);
 
-        const opt = document.createElement('option'); opt.value = y; opt.textContent = y; yearSelect.appendChild(opt);
+        const opt = document.createElement('option'); 
+        opt.value = y; 
+        opt.textContent = 'ปีงบประมาณ ' + y; 
+        yearSelect.appendChild(opt);
       });
-      setActiveYear(years[0]);
+      if(years.length > 0) setActiveYear(years[1] || years[0]); // เลือกปี 2568 ถ้ามี หรือปีแรกสุด
     }
 
     let activeYear = null;
     function setActiveYear(y){
       activeYear = y;
-      // toggle active class
-      document.querySelectorAll('.year-btn').forEach(b=> b.classList.toggle('active', b.textContent===y));
-      renderList();
+      document.querySelectorAll('.year-btn').forEach(b => {
+        b.classList.toggle('active', b.textContent.includes(y));
+      });
       yearSelect.value = y;
+      renderList();
     }
 
     function renderList(){
       const q = searchInput.value.trim().toLowerCase();
       const items = (manifest[activeYear] || []).filter(it => {
         if(!q) return true;
-        return (it.title+ ' ' + (it.desc||'') + ' ' + it.file).toLowerCase().includes(q);
+        return (it.title + ' ' + (it.desc||'') + ' ' + it.file).toLowerCase().includes(q);
       });
 
-      if(items.length===0){
-        contentArea.innerHTML = '<div class="card">ไม่มีไฟล์ตามเงื่อนไข</div>';
+      if(items.length === 0){
+        contentArea.innerHTML = '<div style="padding:40px;text-align:center;color:#666;">- ไม่พบข้อมูลเอกสาร -</div>';
         return;
       }
 
-      const html = document.createElement('div');
-      html.className = 'card';
-      const ul = document.createElement('ul'); ul.className = 'pdf-list';
+      const ul = document.createElement('ul'); 
+      ul.className = 'doc-list';
+      
       items.forEach(it => {
         const li = document.createElement('li');
-        const meta = document.createElement('div'); meta.className = 'pdf-meta';
-        const nm = document.createElement('div'); nm.innerHTML = `<div class="pdf-name">${it.title}</div><div style="font-size:13px;color:var(--muted)">${it.desc || ''}</div>`;
-        meta.appendChild(nm);
+        li.className = 'doc-item';
+        
+        const info = document.createElement('div');
+        info.className = 'doc-info';
+        info.innerHTML = `<div class="doc-title">${it.title}</div><div class="doc-desc">${it.desc || '-'}</div>`;
+        
         const actions = document.createElement('div');
-        const viewBtn = document.createElement('button'); viewBtn.className='btn view'; viewBtn.textContent='ดู';
+        actions.className = 'doc-actions';
+        
+        const viewBtn = document.createElement('button'); 
+        viewBtn.className='btn btn-view'; 
+        viewBtn.textContent='ดูตัวอย่าง';
         viewBtn.addEventListener('click', ()=> openModal(it));
-        const dl = document.createElement('a'); dl.className='btn download'; dl.textContent='ดาวน์โหลด'; dl.href = it.file; dl.download = '';
-        actions.appendChild(viewBtn); actions.appendChild(dl);
-        li.appendChild(meta); li.appendChild(actions);
+        
+        const dl = document.createElement('a'); 
+        dl.className='btn btn-download'; 
+        dl.textContent='ดาวน์โหลด'; 
+        dl.href = it.file; 
+        dl.download = '';
+        
+        actions.appendChild(viewBtn); 
+        actions.appendChild(dl);
+        
+        li.appendChild(info); 
+        li.appendChild(actions);
         ul.appendChild(li);
       });
-      html.appendChild(ul);
+      
       contentArea.innerHTML = '';
-      contentArea.appendChild(html);
+      contentArea.appendChild(ul);
     }
 
-    // Modal viewer
+    // Modal Logic
     const modal = document.getElementById('modal');
     const pdfFrame = document.getElementById('pdfFrame');
     const modalTitle = document.getElementById('modalTitle');
@@ -172,20 +447,16 @@
       downloadBtn.onclick = ()=> { window.open(item.file, '_blank'); };
     }
     function closeModal(){ modal.classList.remove('open'); pdfFrame.src = ''; }
+    
     closeBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
 
-    // search + select handlers
-    searchInput.addEventListener('input', ()=> renderList());
+    // Events
+    searchInput.addEventListener('input', renderList);
     yearSelect.addEventListener('change', (e)=> setActiveYear(e.target.value));
 
-    // init
+    // Init
     renderYearButtons();
-
-    // --- Deployment notes (ไว้ดูในไฟล์):
-    // 1) วางไฟล์ PDF ที่ server path ที่ระบุใน manifest (หรือตั้งเป็น absolute URL) 
-    // 2) หากมีไฟล์จำนวนมาก แนะนำสร้างสคริปต์สร้าง manifest อัตโนมัติจากโฟลเดอร์
-    // 3) หากต้องการฝัง preview แบบ native ในบางเบราว์เซอร์ที่ไม่รองรับ iframe ให้ใช้ PDF.js หรือ Google Docs viewer
   </script>
 </body>
 </html>
