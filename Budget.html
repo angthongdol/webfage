@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>จัดซื้อจัดจ้าง (PDF) — ปีงบประมาณ 2567–2569</title>
+  <style>
+    :root{--bg:#f6f7fb;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);margin:0;color:#111}
+    .container{max-width:1100px;margin:36px auto;padding:20px}
+    header{display:flex;align-items:center;gap:16px}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:6px 0 18px;color:var(--muted)}
+    .years{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+    .year-btn{background:transparent;border:1px solid #d1d5db;padding:10px 14px;border-radius:10px;cursor:pointer}
+    .year-btn.active{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(37,99,235,0.12)}
+    .card{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 1px 2px rgba(16,24,40,0.04);margin-bottom:12px}
+    .pdf-list{list-style:none;padding:0;margin:0}
+    .pdf-list li{display:flex;justify-content:space-between;align-items:center;padding:10px 8px;border-radius:8px}
+    .pdf-list li + li{border-top:1px solid #f3f4f6}
+    .pdf-meta{display:flex;align-items:center;gap:12px}
+    .pdf-name{font-weight:600}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
+    .btn.view{background:#efefef}
+    .btn.download{background:var(--accent);color:#fff}
+    .search{margin-bottom:12px;display:flex;gap:10px}
+    .search input{flex:1;padding:10px;border-radius:10px;border:1px solid #e5e7eb}
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal.open{display:flex}
+    .modal .viewer{width:95%;max-width:1100px;height:80vh;background:#fff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+    .viewer .toolbar{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #eef2ff}
+    .viewer iframe{flex:1;border:0}
+    footer{margin-top:20px;color:var(--muted);font-size:13px}
+    @media (max-width:600px){h1{font-size:18px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>จัดซื้อจัดจ้าง — ไฟล์ PDF แยกปีงบประมาณ</h1>
+    </header>
+    <p class="lead">เลือกปีงบประมาณด้านล่างเพื่อตรวจดูไฟล์ PDF (ตัวอย่างสำหรับปี 2567–2569). วางไฟล์ PDF ในโฟลเดอร์ <code>/pdfs/&lt;ปี&gt;/</code> แล้วแก้ manifest ด้านล่างตามชื่อไฟล์จริง</p>
+
+    <div class="card">
+      <div class="search">
+        <input id="searchInput" placeholder="ค้นหาชื่อไฟล์ หรือ คำอธิบาย (เช่น 'ประกาศ', 'สัญญา')" />
+        <select id="yearSelect" aria-label="เลือกปี">
+          <!-- ปียกตัวอย่าง จะถูกเติมด้วย JS -->
+        </select>
+      </div>
+
+      <div class="years" id="years"></div>
+
+      <div id="contentArea"></div>
+
+      <footer>หมายเหตุ: ตัวอย่างนี้ใช้ลิงก์ไฟล์แบบ relative เช่น <code>/pdfs/2567/ประกาศ_จัดซื้อ_1.pdf</code>. อัปโหลดไฟล์ตามโครงสร้างนี้ที่เซิร์ฟเวอร์ของคุณ</footer>
+    </div>
+  </div>
+
+  <!-- modal viewer -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true">
+    <div class="viewer">
+      <div class="toolbar">
+        <div id="modalTitle">PDF Viewer</div>
+        <div>
+          <button id="downloadBtn" class="btn download">ดาวน์โหลด</button>
+          <button id="closeBtn" class="btn">ปิด</button>
+        </div>
+      </div>
+      <iframe id="pdfFrame" title="PDF viewer"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // ====== ปรับแก้ manifest ที่นี่ ======
+    const manifest = {
+      "2567":[
+        {"file":"/pdfs/2567/ประกาศ_จัดซื้อ_2567_1.pdf","title":"ประกาศจัดซื้อ 1 (2567)","desc":"ประกาศเชิญชวน"},
+        {"file":"/pdfs/2567/สัญญา_ผู้ชนะ_2567.pdf","title":"สัญญาผู้ชนะประกวดราคา","desc":"สัญญาโครงการ"}
+      ],
+      "2568":[
+        {"file":"/pdfs/2568/ประกาศ_จัดซื้อ_2568_ก.pdf","title":"ประกาศจัดซื้อ ก (2568)","desc":"ประกาศและเอกสารแนบ"},
+        {"file":"/pdfs/2568/รายงาน_งบทดลอง_2568.pdf","title":"รายงานงบทดลอง 2568","desc":"เอกสารงบทดลอง"}
+      ],
+      "2569":[
+        {"file":"/pdfs/2569/ประกาศ_จัดซื้อ_2569.pdf","title":"ประกาศจัดซื้อ 2569","desc":"ประกาศทั่วไป"}
+      ]
+    };
+    // ===================================
+
+    const years = Object.keys(manifest).sort();
+    const yearsContainer = document.getElementById('years');
+    const contentArea = document.getElementById('contentArea');
+    const yearSelect = document.getElementById('yearSelect');
+    const searchInput = document.getElementById('searchInput');
+
+    function renderYearButtons() {
+      yearsContainer.innerHTML = '';
+      years.forEach(y => {
+        const b = document.createElement('button');
+        b.className = 'year-btn';
+        b.textContent = y;
+        b.addEventListener('click', ()=> {
+          setActiveYear(y);
+        });
+        yearsContainer.appendChild(b);
+
+        const opt = document.createElement('option'); opt.value = y; opt.textContent = y; yearSelect.appendChild(opt);
+      });
+      setActiveYear(years[0]);
+    }
+
+    let activeYear = null;
+    function setActiveYear(y){
+      activeYear = y;
+      // toggle active class
+      document.querySelectorAll('.year-btn').forEach(b=> b.classList.toggle('active', b.textContent===y));
+      renderList();
+      yearSelect.value = y;
+    }
+
+    function renderList(){
+      const q = searchInput.value.trim().toLowerCase();
+      const items = (manifest[activeYear] || []).filter(it => {
+        if(!q) return true;
+        return (it.title+ ' ' + (it.desc||'') + ' ' + it.file).toLowerCase().includes(q);
+      });
+
+      if(items.length===0){
+        contentArea.innerHTML = '<div class="card">ไม่มีไฟล์ตามเงื่อนไข</div>';
+        return;
+      }
+
+      const html = document.createElement('div');
+      html.className = 'card';
+      const ul = document.createElement('ul'); ul.className = 'pdf-list';
+      items.forEach(it => {
+        const li = document.createElement('li');
+        const meta = document.createElement('div'); meta.className = 'pdf-meta';
+        const nm = document.createElement('div'); nm.innerHTML = `<div class="pdf-name">${it.title}</div><div style="font-size:13px;color:var(--muted)">${it.desc || ''}</div>`;
+        meta.appendChild(nm);
+        const actions = document.createElement('div');
+        const viewBtn = document.createElement('button'); viewBtn.className='btn view'; viewBtn.textContent='ดู';
+        viewBtn.addEventListener('click', ()=> openModal(it));
+        const dl = document.createElement('a'); dl.className='btn download'; dl.textContent='ดาวน์โหลด'; dl.href = it.file; dl.download = '';
+        actions.appendChild(viewBtn); actions.appendChild(dl);
+        li.appendChild(meta); li.appendChild(actions);
+        ul.appendChild(li);
+      });
+      html.appendChild(ul);
+      contentArea.innerHTML = '';
+      contentArea.appendChild(html);
+    }
+
+    // Modal viewer
+    const modal = document.getElementById('modal');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const modalTitle = document.getElementById('modalTitle');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openModal(item){
+      modal.classList.add('open');
+      modalTitle.textContent = item.title;
+      pdfFrame.src = item.file;
+      downloadBtn.onclick = ()=> { window.open(item.file, '_blank'); };
+    }
+    function closeModal(){ modal.classList.remove('open'); pdfFrame.src = ''; }
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
+
+    // search + select handlers
+    searchInput.addEventListener('input', ()=> renderList());
+    yearSelect.addEventListener('change', (e)=> setActiveYear(e.target.value));
+
+    // init
+    renderYearButtons();
+
+    // --- Deployment notes (ไว้ดูในไฟล์):
+    // 1) วางไฟล์ PDF ที่ server path ที่ระบุใน manifest (หรือตั้งเป็น absolute URL) 
+    // 2) หากมีไฟล์จำนวนมาก แนะนำสร้างสคริปต์สร้าง manifest อัตโนมัติจากโฟลเดอร์
+    // 3) หากต้องการฝัง preview แบบ native ในบางเบราว์เซอร์ที่ไม่รองรับ iframe ให้ใช้ PDF.js หรือ Google Docs viewer
+  </script>
+</body>
+</html>
