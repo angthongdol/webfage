@@ -159,17 +159,17 @@
 <body>
 
   <section>
-    <div class="form-row">
-      <label for="nativeSelect">บริการออนไลน์กรมที่ดิน</label>
-      <select id="nativeSelect" name="e-service">
-        <option value="">-- กรุณาเลือก --</option>
-        <option value="1"><a href="https://landsmaps.dol.go.th/">ระบบค้นหารูปแปลงที่ดิน</a></option>
-        <option value="https://eservice.dol.go.th/home">e-service</option>
-        <option value="https://assessprice.treasury.go.th/">ตรวจสอบราคาประเมิน</option>
-        <option value="https://surveyprice.dol.go.th/">ค่าใช้จ่ายรังวัด</option>
-      </select>
-    </div>
-  </section>
+  <div class="form-row">
+    <label for="nativeSelect">บริการออนไลน์กรมที่ดิน</label>
+    <select id="nativeSelect" name="e-service" onchange="if (this.value) window.open(this.value, '_blank')">
+      <option value="">-- กรุณาเลือก --</option>
+      <option value="https://landsmaps.dol.go.th/">ระบบค้นหารูปแปลงที่ดิน</option>
+      <option value="https://eservice.dol.go.th/home">e-service</option>
+      <option value="https://assessprice.treasury.go.th/">ตรวจสอบราคาประเมิน</option>
+      <option value="https://surveyprice.dol.go.th/">ค่าใช้จ่ายรังวัด</option>
+    </select>
+  </div>
+</section>
 
           </ul>
         </div>
@@ -280,6 +280,7 @@
 
 
 </html>
+
 
 
 
