@@ -5,8 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>สำนักงานที่ดินจังหวัดอ่างทอง</title>
-  
-  <!-- Favicon -->
+
   <link rel="icon" type="image/x-icon" href="uploads/dol.ico">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,18 +24,14 @@
       background: linear-gradient(to bottom, hsl(var(--b2)), hsl(var(--b3)));
     }
 
-    /* 🌟 ปรับธีม Emerald ให้ "ขาว-เขียว" เจ๋งจัด: พื้นหลังขาวบริสุทธิ์, เงาเขียวเข้ม */
     [data-theme="emerald"] {
       --b1: 0 0% 100%;
       --b2: 0 0% 98%;
       --b3: 0 0% 96%;
       --p: 160 60% 40%;
-      /* เขียวเข้ม premium */
       --pf: 160 60% 35%;
-      /* เขียวเข้ม focus */
     }
 
-    /* การแบ่งสัดส่วนชัดเจนด้วยเงาและขอบ */
     .navbar {
       border-bottom: 2px solid hsl(var(--p) / 0.2);
       background: hsl(var(--b1));
@@ -56,7 +51,6 @@
       border-color: hsl(var(--p) / 0.3);
     }
 
-    /* ปุ่มและเมนู: เน้นความ premium */
     .btn,
     .menu li a {
       transition: all 0.3s ease-in-out;
@@ -81,7 +75,6 @@
       transform: translateX(4px);
     }
 
-    /* หัวข้อและ badge: ชัดเจนและ formal */
     .card-title {
       font-weight: 800;
       letter-spacing: -0.02em;
@@ -102,21 +95,18 @@
       font-weight: 600;
     }
 
-    /* Aside sticky: เน้นการแบ่งสัดส่วน */
     aside .card {
       background: hsl(var(--b1));
       border: 1px solid hsl(var(--p) / 0.1);
       box-shadow: 0 4px 12px hsl(var(--bc) / 0.08);
     }
 
-    /* Main content: เงาและขอบชัดเจน */
     main {
       border: 1px solid hsl(var(--p) / 0.1);
       box-shadow: 0 8px 20px hsl(var(--bc) / 0.1);
       background: hsl(var(--b1));
     }
 
-    /* Footer: สีเขียวเข้ม formal */
     footer {
       color: hsl(var(--bc) / 0.7);
       border-top: 2px solid hsl(var(--p) / 0.2);
@@ -130,7 +120,6 @@
   <div class="drawer">
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col">
-      <!-- Navbar -->
       <div class="w-full navbar bg-base-100 sticky top-0 z-50">
         <div class="flex-none lg:hidden">
           <label for="my-drawer-3" class="btn btn-square btn-ghost">
@@ -141,141 +130,183 @@
           </label>
         </div>
         <div class="flex-1">
-          <a href="index.html" class="btn btn-ghost normal-case text-xl md:text-2xl font-bold">สำนักงานที่ดินจังหวัดอ่างทอง</a>
+          <a href="index.html"
+            class="btn btn-ghost normal-case text-xl md:text-2xl font-bold">สำนักงานที่ดินจังหวัดอ่างทอง</a>
         </div>
         <div class="flex-none hidden lg:block">
-          <ul class="menu menu-horizontal gap-2">
+          <ul class="menu menu-horizontal gap-2 items-center">
             <li><a href="index.html" class="active">หน้าแรก</a></li>
             <li><a href="pdf.html">ประกาศทั้งหมด</a></li>
             <li><a href="contact.html">ติดต่อเรา</a></li>
-             </style>
-</head>
-<body>
 
-  <section>
-  <div class="form-row">
-    <label for="nativeSelect">บริการออนไลน์กรมที่ดิน</label>
-    <select id="nativeSelect" name="e-service" onchange="if (this.value) window.open(this.value, '_blank')">
-      <option value="">-- กรุณาเลือก --</option>
-      <option value="https://landsmaps.dol.go.th/">ระบบค้นหารูปแปลงที่ดิน</option>
-      <option value="https://eservice.dol.go.th/home">e-service</option>
-      <option value="https://assessprice.treasury.go.th/">ตรวจสอบราคาประเมิน</option>
-      <option value="https://surveyprice.dol.go.th/">ค่าใช้จ่ายรังวัด</option>
-    </select>
-  </div>
-</section>
-
+            <li>
+              <select class="select select-bordered h-10 min-h-0 w-full max-w-xs text-base py-0"
+                onchange="if (this.value) window.open(this.value, '_blank')">
+                <option value="">-- บริการออนไลน์กรมที่ดิน --</option>
+                <option value="https://landsmaps.dol.go.th/">ระบบค้นหารูปแปลงที่ดิน</option>
+                <option value="https://eservice.dol.go.th/home">e-service</option>
+                <option value="https://assessprice.treasury.go.th/">ตรวจสอบราคาประเมิน</option>
+                <option value="https://surveyprice.dol.go.th/">ค่าใช้จ่ายรังวัด</option>
+              </select>
+            </li>
           </ul>
         </div>
       </div>
 
-  <div class="min-h-screen">
-    <div class="mx-auto max-w-7xl px-4 lg:px-8 py-8 lg:py-12">
-      <div class="grid grid-cols-1 lg:grid-cols-[360px,1fr] gap-8">
+      <div class="min-h-screen">
+        <div class="mx-auto max-w-[1400px] px-4 lg:px-6 py-8 lg:py-12">
 
-        <aside class="space-y-8">
-          <div class="sticky top-28 space-y-8">
-            <div class="card bg-base-100 shadow-lg">
-              <figure class="p-5">
-                <img src="uploads/officer.jpg" alt="เจ้าพนักงานที่ดินจังหวัดอ่างทอง"
-                  class="rounded-xl object-cover aspect-[3/4] w-full border border-base-300" />
-              </figure>
-              <div class="card-body py-4 items-center text-center">
-                <h2 class="card-title text-xl">นายประภัสร์ รื่นภาคเพ็ชร</h2>
-                <h1 class="text-base-content/80 text-base font-medium">เจ้าพนักงานที่ดินจังหวัดอ่างทอง</h1>
-              </div>
-            </div>
+          <div class="grid grid-cols-1 lg:grid-cols-[300px,1fr,300px] gap-6 lg:gap-8">
 
-            <section class="card bg-base-100 shadow-lg">
-              <header class="px-5 py-4 border-b-2 border-base-300">
-                <h3 class="font-bold text-xl text-base-content/90">ประกาศล่าสุด</h3>
-              </header>
-              <nav class="p-3">
-                <ul class="menu menu-lg gap-2">
-                  <li><a class="justify-between font-medium" href="https://classic.dol.go.th/" aria-label="เกี่ยวกับกรมที่ดิน">เกี่ยวกับกรมที่ดิน <span
-                        class="badge badge-success">ใหม่</span></a></li>
-                  <li><a href="upfile/Lands.pdf" class="font-medium">ผู้บริหารกรมที่ดิน</a></li>
-                  <li><a href="upfile/Lands ang.pdf" class="font-medium">โครงสร้างหน่วยงาน</a></li>
-                  <li><a href="Budget.html" class="font-medium">จัดซื้อจัดจ้าง</a></li>
-                  <li><a href="Trial Balance.html" class="font-medium">งบทดลอง</a></li>
-                  <li><a href="https://elands.dol.go.th/QueueOnlineServer/queue/253?queueNo=&counterNo=" class="font-medium">คิวบริการ</a></li>
-                  <li><a href="https://doldamrongdhama.dol.go.th/COM1I001" class="font-medium">ร้องเรียน ร้องทุกข์</a></li>
-                  <li><a href="https://announce.dol.go.th/" class="font-medium">ระบบเผยแพร่ประกาศสำนักงานที่ดิน</a></li>
-                </ul>
-                <div class="px-4 pt-4 text-center">
-                  <a href="pdf.html" class="btn btn-primary btn-block">
-                    ดูประกาศทั้งหมด
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-              </nav>
-            </section>
-          </div>
-        </aside>
-
-        <main class="bg-base-100 rounded-3xl p-6 lg:p-10 shadow-lg">
-          <div class="max-w-4xl mx-auto">
-            <div class="flex items-center justify-center mb-8">
-              <div class="badge badge-lg badge-outline px-8 py-5 text-lg font-bold">ข่าวประชาสัมพันธ์</div>
-            </div>
-
-            <div class="grid gap-10 md:grid-cols-1">
-              <article class="card bg-base-100 shadow-lg">
-                <figure class="p-4">
-                  <img src="uploads/278503.jpg" alt="ข่าวประชาสัมพันธ์ 1" class="rounded-xl w-full object-cover" />
-                </figure>
-                <div class="card-body py-4">
-                  <h3 class="card-title text-lg">Smartlands รวม 19 บริการกรมที่ดิน</h3>
-                  <p class="text-base text-base-content/70">Smartland Application ที่รวมบริการทางออนไลน์ของกรมที่ดิน เช่น จองคิวยื่นคำขอจดทะเบียนที่ดิน คำนวณภาษีอากร ค่าใช้จ่ายการรังวัด</p>
-                 
-                </div>
-              </article>
-
-              <article class="card bg-base-100 shadow-lg">
-                <figure class="p-4">
-                  <img src="uploads/e-QLands.jpg" alt="ข่าวประชาสัมพันธ์ 2" class="rounded-xl w-full object-cover" />
-                </figure>
-                <div class="card-body py-4">
-                  <h3 class="card-title text-lg">e-Qlands จองคิวล่วงหน้า</h3>
-                  <p class="text-base text-base-content/70">Application e-Qlands สำหรับจองคิวล่วงหน้า ลดเวลารอคอย สะดวก รวดเร็ว ลดค่าใช้จ่าย</p>
-
-                   </div>
-              </article>
-
-              <article class="card bg-base-100 shadow-lg">
-                <figure class="p-4">
-                  <img src="uploads/Eservice3.jpg" alt="ข่าวประชาสัมพันธ์ 3" class="rounded-xl w-full object-cover" />
-                </figure>
-                <div class="card-body py-4">
-                  <h3 class="card-title text-lg">บริการ E-services กรมที่ดิน</h3>
-                  <p class="text-base text-base-content/70">E-service กรมที่ดิน ขอหนังสือรับรองราคาประเมินทุนทรัพย์ ตรวจสอบหลักทรัพย์ สำเนาภาพลักษณ์เอกสารสิทธิ ยื่นขอได้ตลอด 24 ชั่วโมง </p>
-
+            <aside class="space-y-8">
+              <div class="sticky top-28 space-y-8">
+                <div class="card bg-base-100 shadow-lg">
+                  <figure class="p-5">
+                    <img src="uploads/officer.jpg" alt="เจ้าพนักงานที่ดินจังหวัดอ่างทอง"
+                      class="rounded-xl object-cover aspect-[3/4] w-full border border-base-300" />
+                  </figure>
+                  <div class="card-body py-4 items-center text-center">
+                    <h2 class="card-title text-xl">นายประภัสร์ รื่นภาคเพ็ชร</h2>
+                    <h1 class="text-base-content/80 text-base font-medium">เจ้าพนักงานที่ดินจังหวัดอ่างทอง</h1>
                   </div>
-              </article>
-
-              <article class="card bg-base-100 shadow-lg">
-                <figure class="p-4">
-                  <img src="uploads/572768184_1143902244537726_5823400129712564758_n.jpg" alt="ข่าวประชาสัมพันธ์ 4" class="rounded-xl w-full object-cover" />
-                </figure>
-                <div class="card-body py-4">
-                  <h3 class="card-title text-lg">เตือนภัยมิจฉาชีพ</h3>
-                  <p class="text-base text-base-content/70">กรมที่ดินไม่มีหน้าที่เก็บภาษีที่ดินและสิ่งปลูกสร้าง ไม่แอดไลน์ ไม่ดาวน์โหลด ไม่กดลิ้งค์ </p>
-                  
                 </div>
-              </article>
-            </div>
+
+                <section class="card bg-base-100 shadow-lg">
+                  <header class="px-5 py-4 border-b-2 border-base-300">
+                    <h3 class="font-bold text-xl text-base-content/90">ประกาศล่าสุด</h3>
+                  </header>
+                  <nav class="p-3">
+                    <ul class="menu menu-lg gap-2">
+                      <li><a class="justify-between font-medium" href="https://classic.dol.go.th/">เกี่ยวกับกรมที่ดิน
+                          <span class="badge badge-success">ใหม่</span></a></li>
+                      <li><a href="upfile/Lands.pdf" class="font-medium">ผู้บริหารกรมที่ดิน</a></li>
+                      <li><a href="upfile/Lands ang.pdf" class="font-medium">โครงสร้างหน่วยงาน</a></li>
+                      <li><a href="Budget.html" class="font-medium">จัดซื้อจัดจ้าง</a></li>
+                      <li><a href="Trial Balance.html" class="font-medium">งบทดลอง</a></li>
+                    </ul>
+                    <div class="px-4 pt-4 text-center">
+                      <a href="pdf.html" class="btn btn-primary btn-block">
+                        ดูประกาศทั้งหมด
+                      </a>
+                    </div>
+                  </nav>
+                </section>
+              </div>
+            </aside>
+
+            <main class="bg-base-100 rounded-3xl p-6 lg:p-10 shadow-lg">
+              <div class="max-w-4xl mx-auto">
+                <div class="flex items-center justify-center mb-8">
+                  <div class="badge badge-lg badge-outline px-8 py-5 text-lg font-bold">ข่าวประชาสัมพันธ์</div>
+                </div>
+
+                <div class="grid gap-10 md:grid-cols-1">
+                  <article class="card bg-base-100 shadow-lg">
+                    <figure class="p-4">
+                      <img src="uploads/278503.jpg" alt="ข่าวประชาสัมพันธ์ 1" class="rounded-xl w-full object-cover" />
+                    </figure>
+                    <div class="card-body py-4">
+                      <h3 class="card-title text-lg">Smartlands รวม 19 บริการกรมที่ดิน</h3>
+                      <p class="text-base text-base-content/70">Smartland Application ที่รวมบริการทางออนไลน์ของกรมที่ดิน
+                        เช่น จองคิวยื่นคำขอจดทะเบียนที่ดิน คำนวณภาษีอากร ค่าใช้จ่ายการรังวัด</p>
+
+                    </div>
+                  </article>
+
+                  <article class="card bg-base-100 shadow-lg">
+                    <figure class="p-4">
+                      <img src="uploads/e-QLands.jpg" alt="ข่าวประชาสัมพันธ์ 2"
+                        class="rounded-xl w-full object-cover" />
+                    </figure>
+                    <div class="card-body py-4">
+                      <h3 class="card-title text-lg">e-Qlands จองคิวล่วงหน้า</h3>
+                      <p class="text-base text-base-content/70">Application e-Qlands สำหรับจองคิวล่วงหน้า ลดเวลารอคอย
+                        สะดวก รวดเร็ว ลดค่าใช้จ่าย</p>
+
+                    </div>
+                  </article>
+
+                  <article class="card bg-base-100 shadow-lg">
+                    <figure class="p-4">
+                      <img src="uploads/Eservice3.jpg" alt="ข่าวประชาสัมพันธ์ 3"
+                        class="rounded-xl w-full object-cover" />
+                    </figure>
+                    <div class="card-body py-4">
+                      <h3 class="card-title text-lg">บริการ E-services กรมที่ดิน</h3>
+                      <p class="text-base text-base-content/70">E-service กรมที่ดิน ขอหนังสือรับรองราคาประเมินทุนทรัพย์
+                        ตรวจสอบหลักทรัพย์ สำเนาภาพลักษณ์เอกสารสิทธิ ยื่นขอได้ตลอด 24 ชั่วโมง </p>
+
+                    </div>
+                  </article>
+
+                  <article class="card bg-base-100 shadow-lg">
+                    <figure class="p-4">
+                      <img src="uploads/572768184_1143902244537726_5823400129712564758_n.jpg" alt="ข่าวประชาสัมพันธ์ 4"
+                        class="rounded-xl w-full object-cover" />
+                    </figure>
+                    <div class="card-body py-4">
+                      <h3 class="card-title text-lg">เตือนภัยมิจฉาชีพ</h3>
+                      <p class="text-base text-base-content/70">กรมที่ดินไม่มีหน้าที่เก็บภาษีที่ดินและสิ่งปลูกสร้าง
+                        ไม่แอดไลน์ ไม่ดาวน์โหลด ไม่กดลิ้งค์ </p>
+
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </main>
+
+            <aside class="space-y-8">
+              <div class="sticky top-28 space-y-8">
+                <section class="card bg-base-100 shadow-lg">
+                  <header class="px-5 py-4 border-b-2 border-base-300">
+                    <h3 class="font-bold text-xl text-base-content/90">ลิงก์ที่น่าสนใจ</h3>
+                  </header>
+                  <nav class="p-3">
+                    <ul class="menu menu-lg gap-2">
+                      <li><a href="#" class="font-medium">แบบสอบถามความพึงพอใจ</a></li>
+                      <li><a href="#" class="font-medium">ระบบค้นหา น.ส.3 ก.</a></li>
+                      <li><a href="#" class="font-medium">คู่มือประชาชน</a></li>
+                      <li><a href="#" class="font-medium">มาตรฐานการให้บริการ</a></li>
+                      <li><a href="#" class="font-medium">สถิติการให้บริการ</a></li>
+                    </ul>
+                  </nav>
+                </section>
+
+                <section class="card bg-base-100 shadow-lg">
+                  <header class="px-5 py-4 border-b-2 border-base-300">
+                    <h3 class="font-bold text-xl text-base-content/90">หน่วยงานที่เกี่ยวข้อง</h3>
+                  </header>
+                  <nav class="p-3">
+                    <ul class="menu menu-lg gap-2">
+                      <li><a href="https://www.dol.go.th" target="_blank" class="font-medium">กรมที่ดิน</a></li>
+                      <li><a href="https://www.moi.go.th" target="_blank" class="font-medium">กระทรวงมหาดไทย</a></li>
+                      <li><a href="http://www.angthong.go.th" target="_blank" class="font-medium">จังหวัดอ่างทอง</a>
+                      </li>
+                    </ul>
+                  </nav>
+                </section>
+
+              </div>
+            </aside>
+
           </div>
-        </main>
+        </div>
+
+        <footer class="mt-12 text-center text-base font-medium py-10 border-t-2">
+          © <span id="year"></span> สำนักงานที่ดินจังหวัดอ่างทอง 1/5 หมู่ 8 ถนน 309 อยุธยา-อ่างทอง<br>
+          ตำบลโพสะ อำเภอเมืองอ่างทอง<br>
+          จังหวัดอ่างทอง 14000
+        </footer>
       </div>
     </div>
-
-    <footer class="mt-12 text-center text-base font-medium py-10 border-t-2">
-      © <span id="year"></span> สำนักงานที่ดินจังหวัดอ่างทอง 1/5 หมู่ 8 ถนน 309 อยุธยา-อ่างทอง<br>
-                      ตำบลโพสะ อำเภอเมืองอ่างทอง<br>
-                      จังหวัดอ่างทอง 14000
-    </footer>
+    <div class="drawer-side">
+      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 min-h-full bg-base-200">
+        <li><a href="index.html">หน้าแรก</a></li>
+        <li><a href="pdf.html">ประกาศทั้งหมด</a></li>
+        <li><a href="contact.html">ติดต่อเรา</a></li>
+      </ul>
+    </div>
   </div>
 
   <script>
@@ -283,37 +314,4 @@
   </script>
 </body>
 
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
