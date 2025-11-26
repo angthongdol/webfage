@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังเอกสาร PDF</title>
+    <style>
+        /* จัดรูปแบบพื้นฐาน */
+        body {
+            font-family: 'Sarabun', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh; /* ความสูงเต็มหน้าจอ */
+            background-color: #f4f4f4;
+        }
+
+        /* ส่วนเมนูรายการทางซ้าย */
+        .sidebar {
+            width: 300px;
+            background-color: #2c3e50;
+            color: white;
+            overflow-y: auto; /* เลื่อนลงได้ถ้าไฟล์เยอะ */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background-color: #1a252f;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* ปุ่มเลือกไฟล์ */
+        .file-btn {
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            color: #ecf0f1;
+            text-align: left;
+            cursor: pointer;
+            border-bottom: 1px solid #34495e;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        .file-btn:hover {
+            background-color: #34495e;
+            padding-left: 25px; /* เอฟเฟกต์ขยับเมื่อชี้ */
+        }
+
+        .file-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* ส่วนแสดงผล PDF ทางขวา */
+        .viewer-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+        }
+
+        .viewer-header {
+            padding: 15px;
+            background-color: #ecf0f1;
+            border-bottom: 1px solid #bdc3c7;
+            color: #2c3e50;
+        }
+
+        /* ตัว Iframe สำหรับแสดง PDF */
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* กรณีไม่มีไฟล์แสดง */
+        .placeholder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: #7f8c8d;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">รายการเอกสาร</div>
+        
+        <button class="file-btn" onclick="loadPDF(this, 'files/document1.pdf')">
+            📄 รายงานประจำปี 2566
+        </button>
+        <button class="file-btn" onclick="loadPDF(this, 'files/manual.pdf')">
+            📄 คู่การใช้งานระบบ
+        </button>
+        <button class="file-btn" onclick="loadPDF(this, 'files/price-list.pdf')">
+            📄 ตารางราคาล่าสุด
+        </button>
+        <button class="file-btn" onclick="loadPDF(this, 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')">
+            📄 ตัวอย่างไฟล์ทดสอบ (Online)
+        </button>
+    </div>
+
+    <div class="viewer-container">
+        <div class="viewer-header" id="doc-title">กรุณาเลือกเอกสารที่ต้องการเปิด</div>
+        
+        <iframe id="pdf-viewer" src="" style="display:none;"></iframe>
+        
+        <div id="welcome-msg" class="placeholder">
+            เลือกไฟล์จากเมนูทางซ้ายเพื่อแสดงตัวอย่าง
+        </div>
+    </div>
+
+    <script>
+        function loadPDF(element, filePath) {
+            // 1. เปลี่ยนไฟล์ใน Iframe
+            var viewer = document.getElementById('pdf-viewer');
+            var welcome = document.getElementById('welcome-msg');
+            var title = document.getElementById('doc-title');
+
+            viewer.src = filePath;
+            viewer.style.display = 'block'; // แสดง iframe
+            welcome.style.display = 'none'; // ซ่อนข้อความต้อนรับ
+            
+            // เปลี่ยนชื่อหัวข้อตามปุ่มที่กด
+            title.innerText = element.innerText.replace('📄 ', '');
+
+            // 2. จัดการ Highlight ปุ่มที่เลือกอยู่
+            var buttons = document.querySelectorAll('.file-btn');
+            buttons.forEach(btn => btn.classList.remove('active')); // ลบ active ออกจากทุกปุ่ม
+            element.classList.add('active'); // ใส่ active ให้ปุ่มที่กด
+        }
+    </script>
+
+</body>
+</html>
